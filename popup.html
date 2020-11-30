@@ -11,9 +11,16 @@
   </head>
   <body>
     <button id="changeColor"></button>
-    <label>Url</label>
-    <input type="text" id="url" />
-    <input type="submit" name="Submit" id="url" onClick="onUrlSubmit()" />
+  
+  
+    <form>
+      <div class="form-group">
+        <label for="exampleInputUrl1">URL</label>
+        <input  class="form-control" id="tweetUrl" placeholder="Enter url">
+      </div>
+    
+      <button type="submit" class="btn btn-primary btn-sm" id="loginButton">Submit Url</button>
+    </form>
     <script src="popup.js"></script>
   </body>
 </html>

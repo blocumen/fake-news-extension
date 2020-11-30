@@ -3,7 +3,7 @@
   "version": "0.1",
   "description": "It helps one to detect fake news on any platform!",
   "manifest_version": 2,
-  "permissions": ["storage", "declarativeContent", "activeTab"],
+  "permissions": ["storage", "declarativeContent", "activeTab","*://*.localhost/*"],
   "options_page": "options.html",
   "background": {
     "scripts": ["background.js"],
