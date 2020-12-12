@@ -1,14 +1,26 @@
 {
   "name": "Fake news",
-  "version": "0.1",
+  "version": "0.4",
   "description": "It helps one to detect fake news on any platform!",
-  "manifest_version": 2,
-  "permissions": ["storage", "declarativeContent", "activeTab","*://*.localhost/*"],
+  "manifest_version": 4,
+  "permissions": ["storage", "declarativeContent", "activeTab","*://*.localhost/*","*://*.twitter.com/*"],
   "options_page": "options.html",
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
+  "content_scripts": [
+    {
+      "matches": [
+        // "https://*/*",
+        // "http://*/*"
+        "https://twitter.com/*"
+      ],
+      "js": ["jquery-3.4.1.min.js","content.js"],
+      "all_frames": true
+    }
+  ],
+  
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
