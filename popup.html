@@ -7,19 +7,31 @@
         width: 30px;
         outline: none;
       }
+      body{  
+     min-width:500px;  
+     height:150px;  
+     font-family: "Lucida Grande", Helvetica, Arial, sans-serif;  
+      padding:10px;  
+     }  
+     #loginButton {
+    width: 14em;  height: 2em;
+    float : right;
+    margin-top:4px;
+}
     </style>
+    
   </head>
   <body>
-    <button id="changeColor"></button>
-  
-  
+    <!-- <button id="changeColor"></button> -->
+    <div style="background-color: DEEPSKYBLUE; height: 0px; margin-top: 0px"></div>  
+    <p>Welcome To Fake News Twitter Chrome Extension</p>  
     <form>
       <div class="form-group">
         <label for="exampleInputUrl1">URL</label>
-        <input  class="form-control" id="tweetUrl" placeholder="Enter url">
+        <input  class="form-control" id="tweetUrl" placeholder="Enter url" size=90>
       </div>
     
-      <button type="submit" class="btn btn-primary btn-sm" id="loginButton">Submit Url</button>
+      <button type="submit" class="btn btn-primary btn-sm" id="loginButton" size=30>Submit Url</button>
     </form>
     <script src="popup.js"></script>
   </body>

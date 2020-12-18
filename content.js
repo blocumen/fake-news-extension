@@ -1,4 +1,5 @@
 // Functions
+let tweetsData=[];
 let tweetParser = async function (tweetDom) {
     let tweetContent = tweetDom.innerText;
     let tweet = {
@@ -77,15 +78,26 @@ let tweetParser = async function (tweetDom) {
           let tweetId = href.split("/status/");
           tweetId = tweetId[1];
           if (!(tweetId in parsedTweets)) {
-            console.log(tweetId)
-           if(endPointTweets[tweetId]){
+            
+        //    if(endPointTweets[tweetId]){
              
-               if(endPointTweets[tweetId].result){
-                   tweet.style.backgroundColor = "green";
-               }else{
-                tweet.style.backgroundColor = "red";
-               }
-           }
+        //        if(endPointTweets[tweetId].result){
+        //            tweet.style.backgroundColor = "green";
+        //        }else{
+        //         tweet.style.backgroundColor = "red";
+        //        }
+        //    }
+
+        
+        for(let i=0;i<tweetsData.length;i++){
+            if(tweetsData[i].tweetId == tweetId){
+                if(tweetsData[i].result == "positiveStatus"){
+                    tweet.style.backgroundColor = "green";
+                }else if(tweetsData[i].result == "negativeStatus"){
+                    tweet.style.backgroundColor = "red";
+                }
+            }
+        }
             tweetIds.push(tweetId);
             //console.log(tweet.innerText)
             parsedTweets[tweetId] = await tweetParser(tweet);
@@ -104,19 +116,36 @@ let tweetParser = async function (tweetDom) {
     parsedTweetsGlobal = await getTweets();
  
     const req = new XMLHttpRequest();
-  const baseUrl = "http://localhost:5754/api/v1/getTweetData";
+  const baseUrl = "http://localhost:5754/api/v1/getAllPosts";
  
  
   req.open("GET", baseUrl, true);
 
-  req.send();
-  req.onreadystatechange = function () {
+  await req.send();
+ 
+   req.onreadystatechange = async function () {
     // Call a function when the state changes.
-    if (req.readyState === XMLHttpRequest.DONE) {
-      let data = JSON.parse(req.responseText);
+    if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
+        
+      let data = await JSON.parse(req.responseText);
+
       if(data.status == true){
-        alert(JSON.stringify(data.tweets.tweetData));
-          endPointTweets = data.tweets.tweetData;
+      if(data.posts){
+          for(let i=0;i<data.posts.length;i++){
+              if(data.posts[i].tweetLink){
+                
+                  let getTweetId = data.posts[i].tweetLink.split("/").pop();
+                  let finalResult = data.posts[i].result;
+                  let finalTweet = {};
+                  finalTweet.tweetId = getTweetId;
+                  finalTweet.result=finalResult;
+                tweetsData.push(finalTweet);
+              }
+          }
+          
+      }
+     
+        //  endPointTweets = data.tweets.tweetData;
       }
      
 
